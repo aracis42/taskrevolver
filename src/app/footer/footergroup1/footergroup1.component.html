@@ -1,0 +1,13 @@
+<h4 class="ui inverted header"><i class="tasks icon"></i>Next Task</h4>
+
+<div *ngIf="nexttask; then thenBlock else elseBlock" class="ui inverted paragraph"></div>
+<ng-template #thenBlock>
+  <p><strong>{{ nexttask.title }}</strong></p>
+  <p>{{ nexttask.datetime }}</p>
+  <p>{{ nexttask.description }}</p>
+</ng-template>
+<ng-template #elseBlock>
+  <p>not defined</p>
+</ng-template>
+
+

@@ -1,0 +1,10 @@
+<h4 class="ui inverted header"><i class="checkmark icon"></i>Recent Task</h4>
+<div *ngIf="recenttask; then thenBlock else elseBlock" class="ui inverted paragraph"></div>
+<ng-template #thenBlock>
+  <p><strong>{{ recenttask.title }}</strong></p>
+  <p>{{ recenttask.datetime }}</p>
+  <p>{{ recenttask.description }}</p>
+</ng-template>
+<ng-template #elseBlock>
+  <p>not defined</p>
+</ng-template>

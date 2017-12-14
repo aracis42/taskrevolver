@@ -1,0 +1,10 @@
+<h4 class="ui inverted header"><i class="users icon"></i>My Team</h4>
+<div *ngIf="members; then thenBlock else elseBlock" class="ui inverted paragraph"></div>
+<ng-template #thenBlock>
+  <div class="ui inverted link list">
+      <span *ngFor="let member of members"><a href="mailto:{{member.email}}" class="item">{{ member.firstname }} {{member.lastname}}</a> </span>
+  </div>
+</ng-template>
+<ng-template #elseBlock>
+  <p>not defined</p>
+</ng-template>

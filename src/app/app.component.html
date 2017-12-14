@@ -1,20 +1,148 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+<!-- login modal start -->
+<div *ngIf="loginmodal" class="ui overlay">
+  <div class="ui active tiny modal">
+    <div class="header">Login</div>
+    <div class="content">
+      <form [formGroup]="loginForm">
+      <div class="ui labeled input">
+        <div class="ui label" [ngClass]="{
+          'invalid':invalidemail === true,
+          'valid':invalidemail === false
+        }">
+          Email
+        </div>
+        <input id="email" placeholder="email@example.com" type="text" [formControl]="loginForm.controls['email']">
+      </div>
+
+      <br>
+      <br>
+      
+      <div class="ui labeled input">
+        <div class="ui label" [ngClass]="{
+          'invalid':invalidpassword === true,
+          'valid':invalidpassword === false
+        }">
+          Password
+        </div>
+        <input id="password" placeholder=" " type="password" [formControl]="loginForm.controls['password']">
+      </div>
+
+      <br>
+      <br>
+
+      <div *ngIf="errormessage"  class="ui error message">
+          <div *ngIf="invalidemail"class="header">Invalid email</div>
+          <div *ngIf="invalidpassword"class="header">Invalid password</div>
+          <p>{{errormessage}}</p>
+        </div>
+
+      <div class="ui buttons">
+        <button (click)="logincancel()" class="ui button">Cancel</button>
+        <div class="or"></div>
+        <button (click)="loginwithemail(email, password)" class="ui positive button">Submit</button>
+      </div>
+
+      </form>
+
+      <div class="ui divider"></div>
+
+      <button (click)="loginwithgoogle()" class="ui google button">
+        <i class="google icon"></i>
+        Login with Google
+      </button>
+
+    </div>
+  </div>
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<!-- login modal end -->
+
+
+<div class="ui fixed inverted menu">
+    <div class="ui container">
+      <a [routerLink]="['/home']" class="header item">
+        <img class="logo" src="assets/images/logo.png" alt="Logo" height="64" width="64">
+        TaskRevolver
+      </a>
+      <!-- Home Button -->
+      <a [routerLink]="['/home']" class="item"><i class="home icon"></i>Home</a>
+
+      <!-- Dropdown 1 start -->
+      <div *ngIf="authenticated" class="ui simple dropdown item">
+          <i class="folder icon"></i>Menu <i class="dropdown icon"></i>
+      <div class="menu">
+        <a class="item" href="#">Link Item</a>
+        <a class="item" href="#">Link Item</a>
+        <div class="divider"></div>
+        <div class="header">Header Item</div>
+        <div class="item">
+          <i class="dropdown icon"></i>
+            Sub Menu 1.1
+            <div class="menu">
+              <a class="item" href="#">Link Item</a>
+              <a class="item" href="#">Link Item</a>
+            </div>
+          </div>
+          <a class="item" href="#">Link Item</a>
+        </div>
+      </div>
+      <!-- Dropdown 1 end -->
+
+      <!-- Dropdown 2 start -->
+      <div *ngIf="authenticated" class="ui simple dropdown item">
+          <i class="settings icon"></i>Admin <i class="dropdown icon"></i>
+        <div class="menu">
+          <a class="item" href="#">Link Item</a>
+          <a class="item" href="#">Link Item</a>
+          <div class="divider"></div>
+          <div class="header">Header Item</div>
+          <div class="item">
+            <i class="dropdown icon"></i>
+            Sub Menu 2.1
+            <div class="menu">
+              <a class="item" href="#">Link Item</a>
+              <a class="item" href="#">Link Item</a>
+            </div>
+          </div>
+          <a class="item" href="#">Link Item</a>
+        </div>
+      </div>
+      <!-- Dropdown 2 end -->
+
+      <!-- Authentification  start -->
+      <div class="ui inverted" style="height : 100%" *ngIf="authenticated">
+          <button (click)="settings()" class="ui secondary button" style="height : 100%"><i class="user icon"></i>{{ userDisplayName }}</button> 
+        </div>
+      <div class="ui inverted" style="height : 100%" *ngIf="authenticated">
+        <button (click)="logout()" class="ui secondary button" style="height : 100%"><i class="sign out icon"></i>Logout</button> 
+      </div>
+      <div class="ui inverted" style="height : 100%" *ngIf="!authenticated"> 
+        <button (click)="login()" class="ui secondary button" style="height : 100%"><i class="sign in icon"></i>Login</button>
+        <button (click)="register()" class="ui secondary button" style="height : 100%"><i class="sign in icon"></i>Register</button>
+      </div>  
+      <!-- Authentification  end -->
+    </div>
+  </div>
+
+  <div class="ui main text container">
+    <!-- The routed content loads here! -->
+    <router-outlet></router-outlet>
+  </div>
+
+  <div class="ui inverted vertical footer segment">
+    <div class="ui center aligned container">
+      
+          <!-- footer stuff goes here -->
+          <div *ngIf="authenticated"> <app-footer></app-footer> </div>
+
+
+      <div class="ui inverted section divider"></div>
+      <img src="assets/images/logo.png" class="ui centered mini image" alt="Logo" height="64" width="64">
+      <div class="ui horizontal inverted small divided link list">
+        <a class="item" [routerLink]="['/about']">About</a>
+        <a class="item" [routerLink]="['/contact']">Contact Us</a>
+        <a class="item" [routerLink]="['/tac']">Terms and Conditions</a>
+        <a class="item" [routerLink]="['/privacy']">Privacy Policy</a>
+      </div>
+    </div>
+  </div>
 
