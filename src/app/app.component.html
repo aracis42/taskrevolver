@@ -44,6 +44,15 @@
 
       </form>
 
+      <div *ngIf="emailnotverified" >
+        <div class="ui divider"></div>
+    
+        <button (click)="sendVerfificationEmail()" class="ui email button">
+          <i class="email icon"></i>
+          Send verification email
+        </button>
+      </div>
+      
       <div class="ui divider"></div>
 
       <button (click)="loginwithgoogle()" class="ui google button">
@@ -55,6 +64,65 @@
   </div>
 </div>
 <!-- login modal end -->
+
+<!-- register modal start -->
+<div *ngIf="registermodal" class="ui overlay">
+  <div class="ui active tiny modal">
+    <div class="header">Register</div>
+    <div class="content">
+      <form [formGroup]="registerForm">
+      <div class="ui labeled input">
+        <div class="ui label" [ngClass]="{
+          'invalid':invalidemail === true,
+          'valid':invalidemail === false
+        }">
+          Email
+        </div>
+        <input id="email" placeholder="email@example.com" type="text" [formControl]="registerForm.controls['email']">
+      </div>
+
+      <br>
+      <br>
+      
+      <div class="ui labeled input">
+        <div class="ui label" [ngClass]="{
+          'invalid':invalidpassword === true,
+          'valid':invalidpassword === false
+        }">
+          Password
+        </div>
+        <input id="password" placeholder=" " type="password" [formControl]="registerForm.controls['password']">
+      </div>
+
+      <br>
+      <br>
+
+      <div *ngIf="errormessage"  class="ui error message">
+          <div *ngIf="invalidemail"class="header">Invalid email</div>
+          <div *ngIf="invalidpassword"class="header">Invalid password</div>
+          <p>{{errormessage}}</p>
+        </div>
+
+      <div class="ui buttons">
+        <button (click)="registercancel()" class="ui button">Cancel</button>
+        <div class="or"></div>
+        <button (click)="registersubmit(email, password)" class="ui positive button">Submit</button>
+      </div>
+
+        <div *ngIf="emailnotverified" >
+          <div class="ui divider"></div>
+      
+          <button (click)="sendVerfificationEmail()" class="ui email button">
+            <i class="email icon"></i>
+            Send verification email
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+<!-- register modal end -->
 
 
 <div class="ui fixed inverted menu">
