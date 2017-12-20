@@ -1,0 +1,21 @@
+<form #teamForm="ngForm" (ngSubmit)=onSubmit(teamForm) class="ui form">
+  <h4 class="ui dividing header">Team properties</h4>
+  <input type="hidden" name="$key" class="form-control" #$key="ngModel" [(ngModel)]="teamService.selectedTeam.$key">
+  <div class="required field">
+    <label>Title</label>
+      <input name="title" class="form-control" #title="ngModel" [(ngModel)]="teamService.selectedTeam.title" placeholder="Title of the Team" required>
+  </div>
+  <div class="field">
+    <label>Description</label>
+      <input name="description" class="form-control" #description="ngModel" [(ngModel)]="teamService.selectedTeam.description" placeholder="Description of the Team">
+  </div>
+  <div class="ui error message">
+      <div class="header">Action Forbidden</div>
+      <p>Something went totally wrong, but it is not our fault.</p>
+    </div>
+  <button class="ui button" type="submit" [disabled]="!teamForm.valid"><i class="save icon"></i></button>
+  <div *ngIf="teamService.selectedTeam.$key!=null; then deleteactive else deleteinactive"></div> 
+  <ng-template #deleteinactive><button class="ui disabled button" type="button"><i class="trash icon"></i></button></ng-template>
+  <ng-template #deleteactive><button class="ui button" type="button" (click)="onDelete(teamForm)"><i class="trash icon"></i></button></ng-template> 
+  <button class="ui button" type="button" (click)="resetForm(teamForm)"><i class="cancel icon"></i></button> 
+</form>

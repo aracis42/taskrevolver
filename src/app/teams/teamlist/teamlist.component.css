@@ -1,0 +1,13 @@
+.ui.inverted.segment .item {
+    cursor: pointer;
+    padding: 0.5em;
+    border-radius: .28571429rem;
+}
+
+.ui.inverted.segment .item:hover {
+    background-color: rgba(255, 255, 255, 0.17) 
+}
+
+.ui.inverted.segment .item .header {
+    font-weight: bold;
+}

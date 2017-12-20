@@ -1,4 +1,4 @@
-<!-- login modal start -->
+<!-- login modal start
 <div *ngIf="loginmodal" class="ui overlay">
   <div class="ui active tiny modal">
     <div class="header">Login</div>
@@ -11,7 +11,7 @@
         }">
           Email
         </div>
-        <input id="email" placeholder="email@example.com" type="text" [formControl]="loginForm.controls['email']">
+        <input id="email" placeholder="email@example.com" type="text" [formControl]="loginForm.controls['email']" required>
       </div>
 
       <br>
@@ -24,7 +24,7 @@
         }">
           Password
         </div>
-        <input id="password" placeholder=" " type="password" [formControl]="loginForm.controls['password']">
+        <input id="password" placeholder=" " type="password" [formControl]="loginForm.controls['password']" required>
       </div>
 
       <br>
@@ -39,7 +39,7 @@
       <div class="ui buttons">
         <button (click)="logincancel()" class="ui button">Cancel</button>
         <div class="or"></div>
-        <button (click)="loginwithemail(email, password)" class="ui positive button">Submit</button>
+        <button (click)="loginwithemail(email, password)" class="ui positive button" [disabled]="!loginForm.valid">Submit</button>
       </div>
 
       </form>
@@ -63,9 +63,9 @@
     </div>
   </div>
 </div>
-<!-- login modal end -->
+ login modal end -->
 
-<!-- register modal start -->
+<!-- register modal
 <div *ngIf="registermodal" class="ui overlay">
   <div class="ui active tiny modal">
     <div class="header">Register</div>
@@ -78,7 +78,7 @@
         }">
           Email
         </div>
-        <input id="email" placeholder="email@example.com" type="text" [formControl]="registerForm.controls['email']">
+        <input id="email" placeholder="email@example.com" type="text" [formControl]="registerForm.controls['email']" required>
       </div>
 
       <br>
@@ -91,7 +91,7 @@
         }">
           Password
         </div>
-        <input id="password" placeholder=" " type="password" [formControl]="registerForm.controls['password']">
+        <input id="password" placeholder=" " type="password" [formControl]="registerForm.controls['password']" required>
       </div>
 
       <br>
@@ -106,7 +106,7 @@
       <div class="ui buttons">
         <button (click)="registercancel()" class="ui button">Cancel</button>
         <div class="or"></div>
-        <button (click)="registersubmit(email, password)" class="ui positive button">Submit</button>
+        <button (click)="registersubmit(email, password)" class="ui positive button" [disabled]="!registerForm.valid">Submit</button>
       </div>
 
         <div *ngIf="emailnotverified" >
@@ -122,95 +122,63 @@
     </div>
   </div>
 </div>
-<!-- register modal end -->
+ register modal end -->
 
 
-<div class="ui fixed inverted menu">
-    <div class="ui container">
-      <a [routerLink]="['/home']" class="header item">
-        <img class="logo" src="assets/images/logo.png" alt="Logo" height="64" width="64">
-        TaskRevolver
-      </a>
-      <!-- Home Button -->
-      <a [routerLink]="['/home']" class="item"><i class="home icon"></i>Home</a>
+<!-- register mat start -->
 
-      <!-- Dropdown 1 start -->
-      <div *ngIf="authenticated" class="ui simple dropdown item">
-          <i class="folder icon"></i>Menu <i class="dropdown icon"></i>
-      <div class="menu">
-        <a class="item" href="#">Link Item</a>
-        <a class="item" href="#">Link Item</a>
-        <div class="divider"></div>
-        <div class="header">Header Item</div>
-        <div class="item">
-          <i class="dropdown icon"></i>
-            Sub Menu 1.1
-            <div class="menu">
-              <a class="item" href="#">Link Item</a>
-              <a class="item" href="#">Link Item</a>
-            </div>
-          </div>
-          <a class="item" href="#">Link Item</a>
-        </div>
+<!-- The webpage starts here! -->
+<div class="bodywrapper">
+
+  <!-- The toolbar starts here! -->
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <span><a [routerLink]="['/home']" style="color:white; text-decoration: none" >TaskRevolver</a></span>
+      <span class="toolbar-spacer"></span>
+      <button mat-button [routerLink]="['/home']"><mat-icon>home</mat-icon></button>
+      <button mat-button [routerLink]="['/about']">About</button>
+      <button mat-button [routerLink]="['/contact']">Contact us</button>
+      <button mat-button [routerLink]="['/tac']">Terms and Conditions</button>
+      <button mat-button [routerLink]="['/privacy']">Privacy Policy</button>
+      <span class="toolbar-spacer"></span> 
+      <div *ngIf="registerbutton">  
+        <button mat-button (click)="register()">Register</button>
       </div>
-      <!-- Dropdown 1 end -->
-
-      <!-- Dropdown 2 start -->
-      <div *ngIf="authenticated" class="ui simple dropdown item">
-          <i class="settings icon"></i>Admin <i class="dropdown icon"></i>
-        <div class="menu">
-          <a class="item" href="#">Link Item</a>
-          <a class="item" href="#">Link Item</a>
-          <div class="divider"></div>
-          <div class="header">Header Item</div>
-          <div class="item">
-            <i class="dropdown icon"></i>
-            Sub Menu 2.1
-            <div class="menu">
-              <a class="item" href="#">Link Item</a>
-              <a class="item" href="#">Link Item</a>
-            </div>
-          </div>
-          <a class="item" href="#">Link Item</a>
-        </div>
+      <div *ngIf="verifyemailbutton">
+        <button mat-button (click)="sendVerfificationEmail()">Verify Email</button>
       </div>
-      <!-- Dropdown 2 end -->
-
-      <!-- Authentification  start -->
-      <div class="ui inverted" style="height : 100%" *ngIf="authenticated">
-          <button (click)="settings()" class="ui secondary button" style="height : 100%"><i class="user icon"></i>{{ userDisplayName }}</button> 
-        </div>
-      <div class="ui inverted" style="height : 100%" *ngIf="authenticated">
-        <button (click)="logout()" class="ui secondary button" style="height : 100%"><i class="sign out icon"></i>Logout</button> 
+      <div *ngIf="loginbutton">
+        <button mat-button (click)="login()">Login</button>
       </div>
-      <div class="ui inverted" style="height : 100%" *ngIf="!authenticated"> 
-        <button (click)="login()" class="ui secondary button" style="height : 100%"><i class="sign in icon"></i>Login</button>
-        <button (click)="register()" class="ui secondary button" style="height : 100%"><i class="sign in icon"></i>Register</button>
-      </div>  
-      <!-- Authentification  end -->
-    </div>
-  </div>
+      <div *ngIf="authenticated">
+        <button mat-button (click)="logout()">Logout</button>
+        <button mat-button (click)="settings()" *ngIf="userDisplayName"><mat-icon>person</mat-icon> {{ userDisplayName }}</button>
+        <button mat-button (click)="settings()" *ngIf="!userDisplayName"><mat-icon>person</mat-icon> My account</button>
+       
+        <mat-menu #appMenu="matMenu">
+          <button mat-menu-item [routerLink]="['/admin/teams']" > Teams </button>
+          <button mat-menu-item> Help </button>
+        </mat-menu>   
+        <button mat-icon-button [matMenuTriggerFor]="appMenu">
+          <mat-icon>settings</mat-icon>
+        </button>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
 
-  <div class="ui main text container">
+  <!-- The main content starts here! -->
+  <div class="maincontainer">
     <!-- The routed content loads here! -->
     <router-outlet></router-outlet>
   </div>
 
-  <div class="ui inverted vertical footer segment">
-    <div class="ui center aligned container">
-      
-          <!-- footer stuff goes here -->
-          <div *ngIf="authenticated"> <app-footer></app-footer> </div>
+  <!-- pushing the footer down -->
+  <div class="push"> </div>
+</div>
+
+<!-- footer stuff goes here -->
+<div *ngIf="authenticated"> <app-footer></app-footer> </div>
 
 
-      <div class="ui inverted section divider"></div>
-      <img src="assets/images/logo.png" class="ui centered mini image" alt="Logo" height="64" width="64">
-      <div class="ui horizontal inverted small divided link list">
-        <a class="item" [routerLink]="['/about']">About</a>
-        <a class="item" [routerLink]="['/contact']">Contact Us</a>
-        <a class="item" [routerLink]="['/tac']">Terms and Conditions</a>
-        <a class="item" [routerLink]="['/privacy']">Privacy Policy</a>
-      </div>
-    </div>
-  </div>
+
 

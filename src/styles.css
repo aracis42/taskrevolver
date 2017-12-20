@@ -1,79 +1,42 @@
-@import './app/vendor/semantic.min.css';
+/* @import './app/vendor/semantic.min.css'; */
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
 
-.ui.menu .item img.logo {
-    margin-right: 1.5em;
+* {
+  margin: 0;
+}
+html, body {
+  height: 95%;
+}
+.bodywrapper {
+  min-height: 100%;
+  height: 100%;
+  margin: 0;
 }
 
-form.ui.segment.form {
-  background-color: #F1F9FF;
-  margin-top: 2em;
+.push {
+  height: 4em; 
 }
 
-form.form:after {
-  content: '';
+.toolbar-spacer {
+  width: 8em;
+}
+
+.maincontainer, .materialfooter {
   display: block;
-  height: 0;
-  clear: both;
-  visibility: hidden;
-}
-
-.ui.grid.posts {
-  margin-top: 2em;
-}
-
-.meta {
-  color: #9A9A9A
-}
-
-.ui.grid>.row>.column.votes {
-  display: flex;
-}
-
-ul.ui.list li:before {
-  content: '';
-}
-
-body {
-  background-color: #FFFFFF;
-}
-.ui.menu .item img.logo {
-  margin-right: 1.5em;
-}
-.main.container {
-  margin-top: 7em;
-}
-.wireframe {
-  margin-top: 2em;
-}
-.ui.footer.segment {
-  margin: 5em 0em 0em;
-  padding: 5em 0em;
-}
-
-.ui.modal {
-  width: 32em;
-  margin: 0 0 0 -16em;
-}
-
-.ui.modal .content {
-  text-align: center;
-}
-
-.ui.modal .ui.label {
-  width: 100px;
-}
-
-.ui.overlay{
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
-  z-index: 1000;
-  background-color: rgba(0,0,0,0.5); /*dim the background*/
+  padding: 1em;
 }
 
-.ui.label.invalid {
-  background-color: #912D2B;
-  color: rgba(255,255,255,1);
+.navigation-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
+
+
+input.ng-invalid.ng-dirty  {
+  border-color: #912D2B !important; 
+} 

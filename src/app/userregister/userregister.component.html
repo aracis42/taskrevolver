@@ -1,0 +1,66 @@
+<h1 mat-dialog-title>Register</h1>
+
+<div mat-dialog-content>
+  <form [formGroup]="registerForm">
+      <mat-form-field class="example-full-width" style="width:100%;">
+        <input matInput [(ngModel)]="email" placeholder="Email" type="text" [formControl]="registerForm.controls['email']" [errorStateMatcher]="matcher" required>
+        <mat-hint>Please apply a valid email address as username</mat-hint>
+        <mat-error *ngIf="registerForm.controls['email'].hasError('required')">
+            Email is <strong>required!</strong>
+          </mat-error>
+        <mat-error *ngIf="registerForm.controls['email'].hasError('email') && !registerForm.controls['email'].hasError('required')" >
+            Please enter a valid email address!
+          </mat-error>
+          <mat-error *ngIf="data.invalidemail && !registerForm.controls['email'].hasError('required') && !registerForm.controls['email'].hasError('email')">
+              {{ data.errormessage }}
+          </mat-error>
+      </mat-form-field>
+      <br>
+      <mat-form-field class="example-full-width" style="width:100%;">
+        <input matInput [(ngModel)]="password" placeholder="Password" type="password" [formControl]="registerForm.controls['password']" required>
+        <mat-hint>Please enter a password with a minimum of 6 characters!</mat-hint>
+        <mat-error *ngIf="registerForm.controls['password'].hasError('minLength')">
+            Please enter a longer password
+          </mat-error>
+          <mat-error *ngIf="data.invalidpassword && !loginForm.controls['password'].hasError('minLength')">
+              {{ data.errormessage }}
+          </mat-error>
+      </mat-form-field>
+    <br>
+    <br>
+    </form>
+</div>
+
+<div *ngIf="!data.registerpending" style="text-align: center !important; width: 100%">
+  <div class="spinner" style="text-align: center !important; width:100px; margin:10px auto">
+    <mat-progress-spinner mode="determinate" color="primary" value="100" ></mat-progress-spinner>
+  </div>
+</div>
+
+<div *ngIf="data.registerpending" class="googleloginpending" style="text-align: center !important; width: 100%">
+  <div class="spinner" style="text-align: center !important; width:100px; margin:10px auto">
+    <mat-progress-spinner mode="indeterminate" color="primary" ></mat-progress-spinner>
+  </div>
+</div>
+
+<div class="googlelogin">
+  <mat-card >
+    <mat-card-header>
+      <mat-card-title>Login with Google</mat-card-title>
+      <mat-card-subtitle>Sign in with your Google credentials</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>Click on the button below to open an additional popup that allows to login with your Google account credentials. 
+      After the first login you will be registerd with your Google account attributes.</mat-card-content>     
+    <mat-card-actions>
+        <button mat-button (click)="onGoogleLogin()">Login with Google</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onRegisterSubmit()" color="primary" [disabled]="!registerForm.valid">
+    Submit
+  </button>
+  <button mat-button (click)="onRegisterCancel()">
+    Cancel
+  </button>
+</div>

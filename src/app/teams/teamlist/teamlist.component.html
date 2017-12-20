@@ -1,0 +1,8 @@
+<div class="ui inverted segment">
+  <div class="item" *ngFor="let team of teamlist" (click)="onItemClick(team)">
+    <div class="content">
+      <div class="header">{{team.title}}</div>
+      {{team.description}}
+    </div>
+  </div>
+</div>

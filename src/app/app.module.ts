@@ -1,4 +1,5 @@
 // Modules
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -6,6 +7,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule, AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { MaterialModule } from './material.module';
 
 // Components
 import { AppComponent } from './app.component';
@@ -22,6 +25,11 @@ import { FootercontentComponent } from './footer/footercontent/footercontent.com
 
 // Services
 import { FootercontentService } from './footer/footercontent/footercontent.service';
+import { TeamsComponent } from './teams/teams.component';
+import { TeamlistComponent } from './teams/teamlist/teamlist.component';
+import { TeamComponent } from './teams/team/team.component';
+import { UserregisterComponent } from './userregister/userregister.component';
+import { UserloginComponent } from './userlogin/userlogin.component';
 
 // import { AUTH_PROVIDERS } from './auth.service';
 // import { LoggedInGuard } from './logged-in.guard';
@@ -42,6 +50,7 @@ const routes: Routes = [
   { path: 'contact', component: ContactComponent },
   { path: 'tac', component: TacComponent },
   { path: 'privacy', component: PrivacyComponent },
+  { path: 'admin/teams', component: TeamsComponent },
 //  { path: 'contactus', redirectTo: 'contact' },
 
   // authentication demo
@@ -72,18 +81,27 @@ const routes: Routes = [
     Footergroup1Component,
     Footergroup2Component,
     Footergroup3Component,
-    FootercontentComponent
+    FootercontentComponent,
+    TeamsComponent,
+    TeamlistComponent,
+    TeamComponent,
+    UserregisterComponent,
+    UserloginComponent
   ],
 
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     RouterModule.forRoot(routes),
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-    AngularFireModule.initializeApp(firebaseConfig)
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireDatabaseModule,
+    MaterialModule
   ],
   providers: [FootercontentService, AngularFireAuth],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [UserloginComponent, UserregisterComponent]
 })
 export class AppModule { }
